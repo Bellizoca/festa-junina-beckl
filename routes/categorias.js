@@ -1,19 +1,38 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../data/database');
+const supabase = require('../data/supabase');
 
-router.get('/', (req, res) => {
-    res.json(db.categorias);
+router.get('/', async (req, res, next) => {
+    try{
+        const { data, error } = await supabase
+        .from('categorias')
+        .select('*')
+        .order('id', {ascending: true});
+
+    if (error){
+        throw error;
+    }
+    res.json(data);
+    }catch (err) {
+        next(err);
+    }
 });
 
-router.post('/', (req, res) => {
-    const novaCategoria = {
-        id: db.categorias.length + 1,
-        nome: req.body.nome
-    };
-    db.categorias.push(novaCategoria);
-    res.status(201).json(novaCategoria);
+router.post('/', async (req, res, next) => {
+    try{
+        const { data, error } = await supabase
+        .from('categorias')
+        .insert([{nome: req.body.nome}])
+        .select();
+
+    if (error) throw error;
+    
+    res.status(201).json(data[0]);
+    }catch (err) {
+        next(err);
+    }
 });
+
 
 module.exports = router;
 
