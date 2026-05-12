@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-let db = require('../data/database');
+let db = require('../data/supabase');
 
 router.get('/erro-teste', (req, res) => {
     throw new Error("O servidor erro teste ")
