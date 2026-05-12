@@ -11,7 +11,7 @@ router.get('/', (req,res) => {
     const categoriaId = req.query.categoriaId;
     if (categoriaId) {
         const produtosFiltrados = db.produtos.filter(p => p.categoriaId == categoriaId);
-        return res.json(db.produtosFiltrados);
+        return res.json(produtosFiltrados);
     }
     res.json(db.produtos);
 });
