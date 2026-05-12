@@ -16,7 +16,7 @@ app.use(logger);
 
 // Rota de teste
 app.get('/', (req, res) => {
-    res.json({ mensagem: '🍣 Bem-vindo a API da Festa Junina!' });
+    res.json({ mensagem: '🌽 Bem-vindo a API da Festa Junina!' });
 });
 
 // Importando rotas
