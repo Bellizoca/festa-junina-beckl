@@ -8,10 +8,14 @@ router.get('/erro-teste', (req, res) => {
 
 router.get('/', async (req, res, next) => {
     try {
-        const categoriaId = req.query.categoriaId || req.query.categoria;
-        let query = supabase.from('produtos').select('*').order('id', { ascending: true });
+        const categoriaId = Number(req.query.categoriaId || req.query.categoria);
 
-        if (categoriaId) {
+        let query = supabase
+            .from('produtos')
+            .select('*')
+            .order('id', { ascending: true });
+
+        if (!isNaN(categoriaId)) {
             query = query.eq('categoriaId', categoriaId);
         }
 
